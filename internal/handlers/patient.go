@@ -39,7 +39,8 @@ func (h *PatientHandler) SearchExternal(c *gin.Context) {
 		id = passportID
 	}
 
-	response, err := h.patientService.GetPatientExternal(id)
+	ctx := middleware.GetContextFromGin(c)
+	response, err := h.patientService.GetPatientExternal(ctx, id)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return

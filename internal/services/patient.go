@@ -19,7 +19,7 @@ type PatientService struct {
 	httpClient *http.Client
 }
 
-func (s *PatientService) GetPatientExternal(identifier string) (*models.Patient, error) {
+func (s *PatientService) GetPatientExternal(ctx context.Context, identifier string) (*models.Patient, error) {
 	url := fmt.Sprintf("%s/patient/search/%s", s.apiURL, identifier)
 
 	resp, err := s.httpClient.Get(url)
