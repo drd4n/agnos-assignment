@@ -1,0 +1,8 @@
+.env
+*.log
+*.tmp
+.DS_Store
+node_modules/
+dist/
+build/
+postgres_data/
