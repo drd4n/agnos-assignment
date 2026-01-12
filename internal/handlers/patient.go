@@ -15,17 +15,6 @@ type PatientHandler struct {
 	patientService *services.PatientService
 }
 
-type SearchPatientRequest struct {
-	NationalID  string    `json:"national_id"`
-	PassportID  string    `json:"passport_id"`
-	FirstName   string    `json:"first_name"`
-	MiddleName  string    `json:"middle_name"`
-	LastName    string    `json:"last_name"`
-	DateOfBirth time.Time `json:"date_of_birth"`
-	PhoneNumber string    `json:"phone_number"`
-	Email       string    `json:"email"`
-}
-
 func (h *PatientHandler) SearchExternal(c *gin.Context) {
 	nationalID, passportID := c.Query("national_id"), c.Query("passport_id")
 
@@ -50,7 +39,7 @@ func (h *PatientHandler) SearchExternal(c *gin.Context) {
 }
 
 func (h *PatientHandler) Search(c *gin.Context) {
-	var req SearchPatientRequest
+	var req requests.SearchPatientRequest
 
 	if c.Request.ContentLength > 0 {
 		if err := c.BindJSON(&req); err != nil {
