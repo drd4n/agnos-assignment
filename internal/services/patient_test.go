@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/patient/requests"
 	"agnos-assignment/internal/models"
 
 	"github.com/stretchr/testify/assert"
@@ -39,7 +39,7 @@ func (m *MockPatientRepository) FindByPassportID(passportID string) (*models.Pat
 	return args.Get(0).(*models.Patient), args.Error(1)
 }
 
-func (m *MockPatientRepository) Search(criteria *dtos.PatientSearchCriteria) ([]*models.Patient, error) {
+func (m *MockPatientRepository) Search(criteria *requests.PatientSearchCriteria) ([]*models.Patient, error) {
 	args := m.Called(criteria)
 	if args.Get(0) == nil {
 		return nil, args.Error(1)
@@ -57,7 +57,7 @@ func TestPatientServiceGetPatientExternal(t *testing.T) {
 func TestPatientServiceSearchPatients(t *testing.T) {
 	t.Run("should validate search criteria", func(t *testing.T) {
 		ctx := context.Background()
-		criteria := &dtos.PatientSearchCriteria{
+		criteria := &requests.PatientSearchCriteria{
 			NationalID: "1234567890123",
 		}
 
@@ -68,7 +68,7 @@ func TestPatientServiceSearchPatients(t *testing.T) {
 
 	t.Run("should handle empty search results", func(t *testing.T) {
 		ctx := context.Background()
-		criteria := &dtos.PatientSearchCriteria{
+		criteria := &requests.PatientSearchCriteria{
 			FirstName: "John",
 		}
 

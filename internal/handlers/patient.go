@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"time"
 
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/patient/requests"
 	"agnos-assignment/internal/middleware"
 	"agnos-assignment/internal/services"
 
@@ -73,7 +73,7 @@ func (h *PatientHandler) Search(c *gin.Context) {
 	}
 
 	ctx := middleware.GetContextFromGin(c)
-	patients, err := h.patientService.SearchPatients(ctx, &dtos.PatientSearchCriteria{
+	patients, err := h.patientService.SearchPatients(ctx, &requests.PatientSearchCriteria{
 		NationalID:  req.NationalID,
 		PassportID:  req.PassportID,
 		FirstName:   req.FirstName,

@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"agnos-assignment/internal/dtos"
+	dtos "agnos-assignment/internal/dtos/patient/requests"
 	"agnos-assignment/internal/models"
 
 	"gorm.io/gorm"

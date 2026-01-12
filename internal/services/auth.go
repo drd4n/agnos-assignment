@@ -5,7 +5,8 @@ import (
 	"fmt"
 
 	"agnos-assignment/internal/config"
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/auth/requests"
+	"agnos-assignment/internal/dtos/auth/responses"
 	"agnos-assignment/internal/middleware"
 	"agnos-assignment/internal/models"
 	"agnos-assignment/internal/repository"
@@ -16,7 +17,7 @@ type AuthService struct {
 	config    *config.Config
 }
 
-func (s *AuthService) Register(req *dtos.RegisterRequest) (*dtos.AuthResponse, error) {
+func (s *AuthService) Register(req *requests.RegisterRequest) (*responses.AuthResponse, error) {
 	existing, err := s.staffRepo.FindByEmail(req.Email)
 	if err != nil {
 		return nil, fmt.Errorf("failed to check existing staff: %w", err)
@@ -41,14 +42,14 @@ func (s *AuthService) Register(req *dtos.RegisterRequest) (*dtos.AuthResponse, e
 		return nil, fmt.Errorf("failed to generate token: %w", err)
 	}
 
-	return &dtos.AuthResponse{
+	return &responses.AuthResponse{
 		Token:     token,
 		ExpiresIn: s.config.JWT.ExpirationHours * 3600,
 		Staff:     *staff,
 	}, nil
 }
 
-func (s *AuthService) Login(req *dtos.LoginRequest) (*dtos.AuthResponse, error) {
+func (s *AuthService) Login(req *requests.LoginRequest) (*responses.AuthResponse, error) {
 	staff, err := s.staffRepo.FindByEmail(req.Email)
 	if err != nil {
 		return nil, fmt.Errorf("failed to find staff: %w", err)
@@ -68,7 +69,7 @@ func (s *AuthService) Login(req *dtos.LoginRequest) (*dtos.AuthResponse, error) 
 
 	staff.Password = ""
 
-	return &dtos.AuthResponse{
+	return &responses.AuthResponse{
 		Token:     token,
 		ExpiresIn: s.config.JWT.ExpirationHours * 3600,
 		Staff:     *staff,

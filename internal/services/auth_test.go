@@ -3,7 +3,7 @@ package services
 import (
 	"testing"
 
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/auth/requests"
 	"agnos-assignment/internal/models"
 
 	"github.com/stretchr/testify/assert"
@@ -42,7 +42,7 @@ func (m *MockStaffRepository) VerifyPassword(hashedPassword, plainPassword strin
 
 func TestAuthServiceRegister(t *testing.T) {
 	t.Run("should validate register input", func(t *testing.T) {
-		req := &dtos.RegisterRequest{
+		req := &requests.RegisterRequest{
 			Username: "test",
 			Email:    "test@example.com",
 			Password: "password123",
@@ -58,7 +58,7 @@ func TestAuthServiceRegister(t *testing.T) {
 
 func TestAuthServiceLogin(t *testing.T) {
 	t.Run("should validate login input", func(t *testing.T) {
-		req := &dtos.LoginRequest{
+		req := &requests.LoginRequest{
 			Email:    "test@example.com",
 			Password: "password",
 		}

@@ -3,7 +3,7 @@ package handlers
 import (
 	"net/http"
 
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/auth/requests"
 	"agnos-assignment/internal/middleware"
 	"agnos-assignment/internal/services"
 
@@ -15,7 +15,7 @@ type AuthHandler struct {
 }
 
 func (h *AuthHandler) Register(c *gin.Context) {
-	var req dtos.RegisterRequest
+	var req requests.RegisterRequest
 
 	if !middleware.ValidateRequest(c, &req) {
 		return
@@ -31,7 +31,7 @@ func (h *AuthHandler) Register(c *gin.Context) {
 }
 
 func (h *AuthHandler) Login(c *gin.Context) {
-	var req dtos.LoginRequest
+	var req requests.LoginRequest
 
 	if !middleware.ValidateRequest(c, &req) {
 		return

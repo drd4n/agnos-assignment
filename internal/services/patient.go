@@ -7,7 +7,8 @@ import (
 	"io"
 	"net/http"
 
-	"agnos-assignment/internal/dtos"
+	"agnos-assignment/internal/dtos/patient/requests"
+	"agnos-assignment/internal/dtos/patient/responses"
 	"agnos-assignment/internal/models"
 	"agnos-assignment/internal/repository"
 )
@@ -37,7 +38,7 @@ func (s *PatientService) GetPatientExternal(identifier string) (*models.Patient,
 		return nil, fmt.Errorf("failed to read response body: %w", err)
 	}
 
-	var apiResp dtos.ExternalAPIResponse
+	var apiResp responses.ExternalAPIResponse
 	if err := json.Unmarshal(body, &apiResp); err != nil {
 		return nil, fmt.Errorf("failed to parse API response: %w", err)
 	}
@@ -82,6 +83,6 @@ func (s *PatientService) GetPatientExternal(identifier string) (*models.Patient,
 	return patient, nil
 }
 
-func (s *PatientService) SearchPatients(ctx context.Context, criteria *dtos.PatientSearchCriteria) ([]*models.Patient, error) {
+func (s *PatientService) SearchPatients(ctx context.Context, criteria *requests.PatientSearchCriteria) ([]*models.Patient, error) {
 	return s.repo.SearchPatients(ctx, criteria)
 }
