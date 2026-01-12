@@ -91,9 +91,9 @@ func (h *PatientHandler) Search(c *gin.Context) {
 	}
 
 	if len(patients) == 0 {
-		c.JSON(http.StatusOK, gin.H{"data": []interface{}{}})
+		c.JSON(http.StatusOK, []interface{}{})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": patients})
+	c.JSON(http.StatusOK, patients)
 }
